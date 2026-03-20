@@ -23,6 +23,21 @@ h1 {
   color: #ff4d6d;
 }
 
+/* Hint */
+.hint {
+  position: absolute;
+  top: 70px;
+  width: 100%;
+  color: #ff4d6d;
+  font-size: 14px;
+  animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
 /* Envelope */
 .container {
   position: absolute;
@@ -114,6 +129,7 @@ h1 {
 <body>
 
 <h1>Hey My Hasu 💗</h1>
+<p class="hint">Tap the letter 💌</p>
 
 <div class="container" onclick="openLetter()">
   <div class="envelope"></div>
@@ -134,11 +150,18 @@ h1 {
 let opened = false;
 let musicPlaying = false;
 
+/* OPEN LETTER */
 function openLetter() {
   if (!opened) {
     document.body.classList.add("open");
     typeMessage();
     startMusic();
+
+    // Heart burst 💗
+    for (let i = 0; i < 25; i++) {
+      createHearts();
+    }
+
     opened = true;
   }
 }
@@ -146,6 +169,7 @@ function openLetter() {
 /* MUSIC */
 function startMusic() {
   const music = document.getElementById("bgMusic");
+  music.currentTime = 0;
   music.play().catch(() => {});
   musicPlaying = true;
   document.querySelector(".music-btn").innerText = "⏸ Pause";
@@ -163,7 +187,7 @@ function toggleMusic() {
   musicPlaying = !musicPlaying;
 }
 
-/* TYPEWRITER */
+/* TYPEWRITER MESSAGE */
 const text = `Hey my Hasu 💗
 
 Chazziiiiii here… come here for a second 🥺  
@@ -202,7 +226,10 @@ still loving you the same way… if not more ❤️
 So enough guilt now… okay?  
 
 Just give me a small smile…  
-because your Chazziiiiii loves his Hasu a lotttt 💗🥺`;
+because your Chazziiiiii loves his Hasu a lotttt 💗🥺  
+
+And hey… next time,  
+we’ll make even better plans… together 💗`;
 
 let i = 0;
 function typeMessage() {
@@ -213,7 +240,7 @@ function typeMessage() {
   }
 }
 
-/* HEARTS */
+/* FLOATING HEARTS */
 function createHearts() {
   const heart = document.createElement("div");
   heart.classList.add("heart");
