@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Hasu 💗</title>
+
+<style>
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #ffd6e0, #ffe9f0);
+  font-family: 'Segoe UI', sans-serif;
+  overflow: hidden;
+  text-align: center;
+}
+
+/* Title */
+h1 {
+  position: absolute;
+  top: 30px;
+  width: 100%;
+  color: #ff4d6d;
+}
+
+/* Envelope */
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+}
+
+.envelope {
+  width: 260px;
+  height: 180px;
+  background: #ff8fab;
+  border-radius: 10px;
+  position: relative;
+}
+
+.envelope:before {
+  content: "";
+  position: absolute;
+  border-left: 130px solid transparent;
+  border-right: 130px solid transparent;
+  border-bottom: 90px solid #ff4d6d;
+  top: -90px;
+  left: 0;
+  transition: 0.5s;
+}
+
+.open .envelope:before {
+  transform: rotateX(180deg);
+}
+
+/* Letter */
+.letter {
+  position: absolute;
+  width: 230px;
+  height: 150px;
+  background: white;
+  top: 20px;
+  left: 15px;
+  border-radius: 10px;
+  padding: 15px;
+  box-sizing: border-box;
+  transform: translateY(100px);
+  transition: 0.6s;
+  opacity: 0;
+  overflow-y: auto;
+}
+
+.open .letter {
+  transform: translateY(-90px);
+  opacity: 1;
+}
+
+/* Message */
+.message {
+  font-size: 14px;
+  color: #333;
+  text-align: left;
+}
+
+/* Hearts */
+.heart {
+  position: absolute;
+  font-size: 20px;
+  animation: floatUp 6s linear infinite;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(100vh); opacity: 1; }
+  100% { transform: translateY(-10vh); opacity: 0; }
+}
+
+/* Music button */
+.music-btn {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background: #ff4d6d;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Hey My Hasu 💗</h1>
+
+<div class="container" onclick="openLetter()">
+  <div class="envelope"></div>
+
+  <div class="letter">
+    <div class="message" id="typedText"></div>
+  </div>
+</div>
+
+<!-- AUDIO -->
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<button class="music-btn" onclick="toggleMusic()">🎶 Play</button>
+
+<script>
+let opened = false;
+let musicPlaying = false;
+
+function openLetter() {
+  if (!opened) {
+    document.body.classList.add("open");
+    typeMessage();
+    startMusic();
+    opened = true;
+  }
+}
+
+/* MUSIC */
+function startMusic() {
+  const music = document.getElementById("bgMusic");
+  music.play().catch(() => {});
+  musicPlaying = true;
+  document.querySelector(".music-btn").innerText = "⏸ Pause";
+}
+
+function toggleMusic() {
+  const music = document.getElementById("bgMusic");
+  if (musicPlaying) {
+    music.pause();
+    document.querySelector(".music-btn").innerText = "🎶 Play";
+  } else {
+    music.play();
+    document.querySelector(".music-btn").innerText = "⏸ Pause";
+  }
+  musicPlaying = !musicPlaying;
+}
+
+/* TYPEWRITER */
+const text = `Hey my Hasu 💗
+
+Chazziiiiii here… come here for a second 🥺  
+
+First of all… stop feeling guilty, okay?  
+Like seriously… stop right there.  
+
+You not coming home today doesn’t make you a bad person…  
+and it definitely doesn’t change anything between us.  
+
+And about mom… listen to me carefully ❤️  
+
+She didn’t invite you because she expects something from you…  
+she invited you because she likes you.  
+
+That’s it. No pressure. No disappointment.  
+
+So please don’t carry that weight on your heart, my Hasu…  
+you don’t deserve to feel like that 💗  
+
+I missed you today, yes…  
+but more than that, I care about how YOU feel.  
+
+I’d rather have you at peace…  
+than see you stressed over something like this 🥺  
+
+You don’t have to prove anything to me or my family.  
+You already mean so much to me just by being YOU.  
+
+And no matter what…  
+
+I’m still here,  
+still yours,  
+still loving you the same way… if not more ❤️  
+
+So enough guilt now… okay?  
+
+Just give me a small smile…  
+because your Chazziiiiii loves his Hasu a lotttt 💗🥺`;
+
+let i = 0;
+function typeMessage() {
+  if (i < text.length) {
+    document.getElementById("typedText").innerHTML += text.charAt(i);
+    i++;
+    setTimeout(typeMessage, 30);
+  }
+}
+
+/* HEARTS */
+function createHearts() {
+  const heart = document.createElement("div");
+  heart.classList.add("heart");
+  heart.innerHTML = "💗";
+
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = (15 + Math.random() * 20) + "px";
+  heart.style.animationDuration = (4 + Math.random() * 3) + "s";
+
+  document.body.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 6000);
+}
+
+setInterval(createHearts, 300);
+</script>
+
+</body>
+</html>
